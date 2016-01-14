@@ -8,6 +8,8 @@
 
 namespace Lightest;
 
+use Lightest\Route;
+
 /**
  * The router class.
  */
@@ -28,18 +30,24 @@ class Router {
 	}
 
 	/**
-	 * Check if a route match one of the route in $routes
+	 * Check if a route match the current request
 	 * @param  Route  $route
-	 * @return boolean
+	 * @return Route  if match was found, null otherwise
 	 */
-	private function routeMatch(Route $route)
+	private function routeMatch(Request $request)
 	{
-		foreach ($routes as $r) {
-			if ($r === $route)
-				return true;
+		//$request_method = 
+
+		foreach ($this->routes as $route) {
+			var_dump($route->getUri(), $request->getUri());
+			var_dump($route->getHttpMethod(), $request->getHttpMethod());
+			if ($route->getUri() === $request->getUri() &&
+				$route->getHttpMethod() === $request->getMethod()) {
+				return $route;
+			}
 		}
 
-		return false;
+		return null;
 	}
 
 	/**
@@ -48,7 +56,12 @@ class Router {
 	 */
 	public function addRoute(Route $route)
 	{
-		if ($route instanceof Route) {
+		foreach ($this->routes as $r) {
+			if ($r->getUri() === $route->getUri())
+				throw new Exception("Application error: route with uri: " . $r->uri . "already exists");
+		}
+
+		if ($route instanceof Route) { // Necessary?
 			$this->routes[] = $route;
 			return;
 		}
@@ -58,11 +71,22 @@ class Router {
 
 	/**
 	 * Router dispatcher. 
+	 * @param Request $request current request
 	 * @return boolean
 	 */
-	public function dispatch()
+	public function dispatch(Request $request)
 	{
+		$current_route = $this->routeMatch($request);
 
+		if (is_null($current_route))
+			return false;
+
+		foreach ($current_route->getActions() as $action) {
+			var_dump($action);
+			call_user_func($action);
+		}
+
+		return true;
 	}
 
 }

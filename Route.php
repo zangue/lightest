@@ -39,12 +39,12 @@ class Route {
 	 */
 	public function __construct($uri, $http_method, $actions = null)
 	{
-		$valid_http_methods = ['GET', 'POST', 'PUT', 'DELETE'];
+		$valid_http_methods = ['GET', 'POST', 'PUT', 'PACTH', 'DELETE'];
 
 		if (!is_null($uri)) $this->uri = $uri;
 
 		if (!is_null($http_method) && in_array($http_method, $valid_http_methods))
-			$this->http_method;
+			$this->http_method = $http_method;
 
 		foreach ($actions as $action) {
 			if (!is_null($action) && is_callable($action))
