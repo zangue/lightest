@@ -8,6 +8,7 @@
 
 namespace Lightest;
 
+use Lightest\Util;
 
 /**
  * This class describe a request object.
@@ -55,7 +56,7 @@ class Request {
 	 */
 	public function getUri()
 	{
-		return trim($_SERVER['REQUEST_URI']);
+		return Util::stripBase(rtrim($_SERVER['REQUEST_URI'], '/'));
 	}
 
 	/**

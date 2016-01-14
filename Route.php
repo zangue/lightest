@@ -8,6 +8,8 @@
 
 namespace Lightest;
 
+use Exception;
+
 /**
  * This class describe a route element, i.e, a resource uri and one or more
  * of actions that schould be performed on uri request.

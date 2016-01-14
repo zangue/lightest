@@ -9,6 +9,7 @@
 namespace Lightest;
 
 use Lightest\Route;
+use Exception;
 
 /**
  * The router class.
@@ -26,7 +27,7 @@ class Router {
 	 */
 	public function __construct()
 	{
-
+		$this->routes = array();
 	}
 
 	/**
@@ -39,10 +40,10 @@ class Router {
 		//$request_method = 
 
 		foreach ($this->routes as $route) {
-			var_dump($route->getUri(), $request->getUri());
-			var_dump($route->getHttpMethod(), $request->getHttpMethod());
+			//var_dump($route->getUri(), $request->getUri());
+			//var_dump($route->getHttpMethod(), $request->getHttpMethod());
 			if ($route->getUri() === $request->getUri() &&
-				$route->getHttpMethod() === $request->getMethod()) {
+				$route->getHttpMethod() === $request->getHttpMethod()) {
 				return $route;
 			}
 		}
@@ -82,7 +83,7 @@ class Router {
 			return false;
 
 		foreach ($current_route->getActions() as $action) {
-			var_dump($action);
+			//var_dump($action);
 			call_user_func($action);
 		}
 

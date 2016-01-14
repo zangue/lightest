@@ -11,6 +11,8 @@ namespace Lightest;
 use Lightest\Request;
 use Lightest\Route;
 use Lightest\Router;
+use Lightest\Util;
+use Exception;
 
 class Lightest {
 
@@ -24,7 +26,7 @@ class Lightest {
 	 * The request object
 	 * @var Request
 	 */
-	private $request;
+	public $request;
 
 
 	public function __construct()
@@ -32,17 +34,6 @@ class Lightest {
 		// TODO
 		$this->router = new Router();
 		$this->request = new Request();
-	}
-
-	/**
-	 * Remove base name from uri. Also parse parameters
-	 * example uri: <base>/resource/param1/praram2
-	 * @return string
-	 */
-	protected function parseUri($uri)
-	{
-		// TODO also parse params
-		throw new Exception("Not implemented error.");
 	}
 
 	/**
@@ -56,7 +47,6 @@ class Lightest {
 			throw new Exception("Error: Resource uri can not be NULL.");
 
 		$uri = '/' . trim($uri, '/');
-		$uri = $this->parseUri($uri);
 
 		$http_method = 'GET';
 
