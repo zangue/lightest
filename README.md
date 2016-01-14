@@ -4,7 +4,7 @@ Lightest is a tiny PHP 'micro framework'. Actually it is just a router.
 
 ###Why?
 Just for fun and learning. I'm a big fan of [Slim](http://www.slimframework.com/) and I was just curious to see how
-writing a similar tool can be done and how much I would need for it.
+writing a similar tool can be done and how much time I would need for it.
 
 ###How to use
 Just like [Slim](http://www.slimframework.com/) if you are familiar with it.
