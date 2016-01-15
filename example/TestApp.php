@@ -14,11 +14,15 @@ use Lightest\Lightest;
 
 //var_dump($_SERVER);
 
-$app = new Lightest();
+$app = new Lightest([
+		'templates_path' => APP_DIR . DS . 'templates'
+	]);
 
 $app->get('/test', function () use ($app) {
 	echo 'This is a test.';
 	//echo $app->request->getHttpMethod();
 });
 
+$app->view->render('header.php');
 $app->run();
+$app->view->render('footer.php');
