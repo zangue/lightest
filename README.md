@@ -34,5 +34,4 @@ $app->run();
 
 ###Notes
 This is still work in progress. I will add features as I get sparse time. Especially
-I'm interested in adding remaining HTTP methods (POST, PUT, ...), the middleware concept
-and a view handler at least.
+I'm interested in adding the middleware concept at least.
