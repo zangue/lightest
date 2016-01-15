@@ -62,6 +62,9 @@ class View {
 
 		ob_start();
 
+		// Merge passed data with (potentially) previously set data
+		$data = array_merge($this->data, $data);
+
 		if (!empty($data))
 			extract($data);
 
