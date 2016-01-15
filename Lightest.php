@@ -11,6 +11,7 @@ namespace Lightest;
 use Lightest\Request;
 use Lightest\Route;
 use Lightest\Router;
+use Lightest\View;
 use Lightest\Util;
 use Exception;
 
@@ -28,12 +29,25 @@ class Lightest {
 	 */
 	public $request;
 
+	/**
+	 * The view object
+	 * @var View
+	 */
+	public $view;
 
-	public function __construct()
+
+	public function __construct(array $settings = array())
 	{
-		// TODO
+		//
+		$defaults = [
+			'templates_path' => '.' . DIRECTORY_SEPARATOR
+		];
+
+		$settings = array_merge($defaults, $settings);
+
 		$this->router = new Router();
 		$this->request = new Request();
+		$this->view = new View($settings['templates_path']);
 	}
 
 	/**
