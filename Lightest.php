@@ -37,26 +37,82 @@ class Lightest {
 	}
 
 	/**
-	 * adds a GET route
-	 * @param  string $uri
-	 * @return void
+	 * Generic function to add a new route
+	 * @param string $uri
+	 * @param string $method HTTP Method
+	 * @param array of callables $actions actions to be performed on route match
 	 */
-	public function get($uri)
+	protected function addRoute($uri, $http_method, $actions)
 	{
 		if (is_null($uri))
 			throw new Exception("Error: Resource uri can not be NULL.");
 
 		$uri = '/' . trim($uri, '/');
 
-		$http_method = 'GET';
-
-		$actions = array_slice(func_get_args(), 1);
-
 		$route = new Route($uri, $http_method, $actions);
 
 		$this->router->addRoute($route);
 	}
 
+	/**
+	 * adds a GET route
+	 * @param  string $uri
+	 * @return void
+	 */
+	public function get($uri)
+	{
+		$actions = array_slice(func_get_args(), 1);
+
+		$this->addRoute($uri, 'GET', $actions);
+	}
+
+	/**
+	 * adds a POST route
+	 * @param  string $uri
+	 * @return void
+	 */
+	public function post($uir)
+	{
+		$actions = array_slice(func_get_args(), 1);
+
+		$this->addRoute($uri, 'POST', $actions);
+	}
+
+	/**
+	 * adds a PUT route
+	 * @param  string $uri
+	 * @return void
+	 */
+	public function put($uri)
+	{
+		$actions = array_slice(func_get_args(), 1);
+
+		$this->addRoute($uri, 'PUT', $actions);
+	}
+
+	/**
+	 * adds a PATCH route
+	 * @param  string $uri
+	 * @return void
+	 */
+	public function patch($uri)
+	{
+		$actions = array_slice(func_get_args(), 1);
+
+		$this->addRoute($uri, 'PATCH', $actions);
+	}
+
+	/**
+	 * adds a DELETE route
+	 * @param  string $uri
+	 * @return void
+	 */
+	public function delete($uri)
+	{
+		$actions = array_slice(func_get_args(), 1);
+
+		$this->addRoute($uri, 'DELETE', $actions);
+	}
 
 	/**
 	 * Run the application
