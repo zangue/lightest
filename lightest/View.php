@@ -70,7 +70,9 @@ class View {
 
 		require $template_file;
 
-		return ob_get_clean();
+		$content =  ob_get_clean();
+
+		echo $content;
 	}
 
 }
