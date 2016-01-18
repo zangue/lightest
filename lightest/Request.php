@@ -74,9 +74,7 @@ class Request {
 	 */
 	public function isGet()
 	{
-		$http_method = $this->getHttpMethod();
-
-		return $http_method === self::HTTP_GET;
+		return $this->getHttpMethod() === self::HTTP_GET;
 	}
 
 	/**
@@ -85,7 +83,7 @@ class Request {
 	 */
 	public function isPost()
 	{
-		throw new Exception("Not implmented error");
+		return $this->getHttpMethod() === self::HTTP_POST;
 	}
 
 	/**
@@ -94,7 +92,7 @@ class Request {
 	 */
 	public function isPut()
 	{
-		throw new Exception("Not implmented error");
+		return $this->getHttpMethod() === self::HTTP_PUT;
 	}
 
 	/**
@@ -103,7 +101,7 @@ class Request {
 	 */
 	public function isPatch()
 	{
-		throw new Exception("Not implmented error");
+		return $this->getHttpMethod() === self::HTTP_PATCH;
 	}
 
 	/**
@@ -112,7 +110,7 @@ class Request {
 	 */
 	public function isDelete()
 	{
-		throw new Exception("Not implmented error");
+		return $this->getHttpMethod() === self::HTTP_DELETE;
 	}
 
 }
