@@ -41,7 +41,7 @@ class Route {
 	 */
 	public function __construct($uri, $http_method, $actions = null)
 	{
-		$valid_http_methods = ['GET', 'POST', 'PUT', 'PACTH', 'DELETE'];
+		$valid_http_methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
 
 		if (!is_null($uri)) $this->uri = $uri;
 
