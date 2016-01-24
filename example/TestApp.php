@@ -18,6 +18,11 @@ $app = new Lightest([
 		'templates_path' => APP_DIR . DS . 'templates'
 	]);
 
+$app->get('/', function () use ($app) {
+	echo 'This is the root path.';
+	//echo $app->request->getHttpMethod();
+});
+
 $app->get('/test', function () use ($app) {
 	echo 'This is a test.';
 	//echo $app->request->getHttpMethod();

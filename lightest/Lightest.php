@@ -18,6 +18,11 @@ use Exception;
 class Lightest {
 
 	/**
+	 * Version
+	 */
+	const VERSION = '0.1';
+
+	/**
 	 * The router
 	 * @var Router
 	 */
@@ -48,6 +53,15 @@ class Lightest {
 		$this->router = new Router();
 		$this->request = new Request();
 		$this->view = new View($settings['templates_path']);
+	}
+
+	/**
+	 * Get lightest version
+	 * @return {string} version
+	 */
+	public function version()
+	{
+		return self::VERSION;
 	}
 
 	/**
