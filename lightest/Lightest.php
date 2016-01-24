@@ -99,7 +99,7 @@ class Lightest {
 	 * @param  string $uri
 	 * @return void
 	 */
-	public function post($uir)
+	public function post($uri)
 	{
 		$actions = array_slice(func_get_args(), 1);
 
