@@ -40,6 +40,12 @@ class Lightest {
 	 */
 	public $view;
 
+	/**
+	 * (User) No route handler
+	 * @var callable
+	 */
+	protected $noRoute;
+
 
 	public function __construct(array $settings = array())
 	{
@@ -143,6 +149,32 @@ class Lightest {
 	}
 
 	/**
+	 * Adds a user handler for 404 HTTP error
+	 */
+	public function notFound()
+	{
+		$handlers = func_get_args();
+
+		foreach ($handlers as $handler) {
+			if (!is_callable($handler))
+				throw new Exception("Error: 404 handler muss be a handler.");
+		}
+
+		$this->noRoute = $handlers;
+	}
+
+	public function handleNotFound()
+	{
+		if (isset($this->noRoute)) {
+			foreach ($this->noRoute as $handler) {
+				call_user_func($handler);
+			}
+		} else {
+			echo '<p>Error 404: Not found.</p>';
+		}
+	}
+
+	/**
 	 * Run the application
 	 * @return void
 	 */
@@ -151,8 +183,7 @@ class Lightest {
 		$dispatched = $this->router->dispatch($this->request);
 
 		if (!$dispatched) {
-			// TODO
-			echo "Error 404: Not found";
+			$this->handleNotFound();
 		}
 	}
 

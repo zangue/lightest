@@ -19,13 +19,16 @@ $app = new Lightest([
 	]);
 
 $app->get('/', function () use ($app) {
-	echo 'This is the root path.';
-	//echo $app->request->getHttpMethod();
+	echo 'Lightest ' . $app->version();
 });
 
 $app->get('/test', function () use ($app) {
 	echo 'This is a test.';
 	//echo $app->request->getHttpMethod();
+});
+
+$app->notFound(function () {
+	echo 'Route not found.';
 });
 
 $app->view->render('header.php');
