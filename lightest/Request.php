@@ -58,8 +58,9 @@ class Request {
 	{
 		$uri = Util::stripBase($_SERVER['REQUEST_URI']);
 
-		if ($uri !== '/')
-			rtrim($uri, '/');
+		if ($uri !== '/') {
+			$uri = rtrim($uri, '/');
+		}
 
 		return $uri;
 	}

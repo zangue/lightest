@@ -25,6 +25,9 @@ $app->get('/', function () use ($app) {
 $app->get('/test', function () use ($app) {
 	echo 'This is a test.';
 	//echo $app->request->getHttpMethod();
+},
+function () {
+	echo 'Another test.';
 });
 
 $app->notFound(function () {
