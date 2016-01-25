@@ -56,7 +56,14 @@ class Request {
 	 */
 	public function getUri()
 	{
-		$uri = Util::stripBase($_SERVER['REQUEST_URI']);
+		$uri = $_SERVER['REQUEST_URI'];
+
+		if (strpos($uri, '?') !== false) {
+			$uri = explode('?', $uri);
+			$uri = $uri[0];
+		}
+
+		$uri = Util::stripBase($uri);
 
 		if ($uri !== '/') {
 			$uri = rtrim($uri, '/');
