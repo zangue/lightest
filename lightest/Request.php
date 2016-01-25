@@ -136,4 +136,13 @@ class Request {
 		return $_GET[$key];
 	}
 
+	/**
+	 * Get a variable from $_POST array
+	 * @param  string $key variable name
+	 * @return string the variable
+	 */
+	public function post($key)
+	{
+		return $_POST[$key];
+	}
 }

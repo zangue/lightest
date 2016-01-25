@@ -32,7 +32,9 @@ $app->get('/post', function () use ($app) {
 });
 
 $app->post('/post', function () use ($app) {
-	echo $app->request->isPost();
+	//echo $app->request->isPost();
+	echo 'Firstname: ' . $app->request->post('firstname') .
+		 ' Lastname: ' . $app->request->post('lastname');
 });
 
 $app->notFound(function () {
