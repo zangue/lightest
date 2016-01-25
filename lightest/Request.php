@@ -137,6 +137,24 @@ class Request {
 	}
 
 	/**
+	 * get all GET variables
+	 * @return array
+	 */
+	public function allGet()
+	{
+		return $_GET;
+	}
+
+	/**
+	 * get all POST variable
+	 * @return array
+	 */
+	public function allPost()
+	{
+		return $_POST;
+	}
+
+	/**
 	 * Get a variable from $_POST array
 	 * @param  string $key variable name
 	 * @return string the variable

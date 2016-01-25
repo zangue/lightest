@@ -8,11 +8,13 @@ require LIGHTEST_DIR . DS . 'Lightest.php';
 
 use Lightest\Lightest;
 
-//var_dump($_POST['aaa']);
+//var_dump($SERVER);
 
 $app = new Lightest([
 		'templates_path' => APP_DIR . DS . 'templates'
 	]);
+
+//var_dump($app->request->allGet());
 
 $app->get('/', function () use ($app) {
 	echo 'Lightest ' . $app->version();
