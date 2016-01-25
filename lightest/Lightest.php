@@ -47,8 +47,48 @@ class Lightest {
 	protected $noRoute;
 
 
+	/**
+	 * PSR-0 Autoloader
+	 *
+	 * @see http://www.php-fig.org/psr/psr-0/
+	 * @param  string $className The name of the class to load
+	 * @return void
+	 */
+	public function autoload($className)
+	{
+        $className = ltrim($className, '\\');
+	    $fileName  = '';
+	    $namespace = '';
+	    if ($lastNsPos = strrpos($className, '\\')) {
+	        $namespace = substr($className, 0, $lastNsPos);
+	        $className = substr($className, $lastNsPos + 1);
+	        $fileName  = __DIR__ . str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
+	    }
+	    $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
+
+	    $fileName = str_replace($namespace, '', $fileName);
+
+	    require $fileName;
+	}
+
+
+	/**
+	 * Installs this class loader on the SPL autoload stack.
+	 */
+	public function register()
+	{
+	    spl_autoload_register(array($this, 'autoload'));
+	}
+
+	/**
+	 * Class constructor
+	 * @param array $settings application settings
+	 */
 	public function __construct(array $settings = array())
 	{
+		// Install class loader
+		$this->register();
+
 		//
 		$defaults = [
 			'templates_path' => '.' . DIRECTORY_SEPARATOR

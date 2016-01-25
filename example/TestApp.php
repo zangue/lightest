@@ -3,12 +3,8 @@
 /**
  * A demo application
  */
+
 require LIGHTEST_DIR . DS . 'Lightest.php';
-require LIGHTEST_DIR . DS . 'Request.php';
-require LIGHTEST_DIR . DS . 'Route.php';
-require LIGHTEST_DIR . DS . 'Router.php';
-require LIGHTEST_DIR . DS . 'View.php';
-require LIGHTEST_DIR . DS . 'Util.php';
 
 use Lightest\Lightest;
 
