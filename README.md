@@ -12,11 +12,7 @@ Just like [Slim](http://www.slimframework.com/) if you are familiar with it.
 ```php
 <?php
 
-require 'Lightest.php';
-require 'Request.php';
-require 'Route.php';
-require 'Router.php';
-require 'Util.php';
+require 'path/to/Lightest.php';
 
 use Lightest\Lightest;
 
