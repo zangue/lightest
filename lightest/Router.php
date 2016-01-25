@@ -58,8 +58,10 @@ class Router {
 	public function addRoute(Route $route)
 	{
 		foreach ($this->routes as $r) {
-			if ($r->getUri() === $route->getUri())
-				throw new Exception("Application error: route with uri: " . $r->uri . "already exists");
+			if ($r->getUri() === $route->getUri() &&
+				$r->getHttpMethod() === $route->getHttpMethod())
+				throw new Exception("Application error: route with uri: " . $r->getUri() .
+					" and method " . $r.getHttpMethod() . " already exists");
 		}
 
 		if ($route instanceof Route) { // Necessary?
