@@ -126,4 +126,14 @@ class Request {
 		return $this->getHttpMethod() === self::HTTP_DELETE;
 	}
 
+	/**
+	 * Get a variable from $_GET array
+	 * @param  string $key variable name
+	 * @return string the variable
+	 */
+	public function get($key)
+	{
+		return $_GET[$key];
+	}
+
 }

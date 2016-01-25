@@ -8,7 +8,7 @@ require LIGHTEST_DIR . DS . 'Lightest.php';
 
 use Lightest\Lightest;
 
-//var_dump($_SERVER);
+//var_dump($_POST['aaa']);
 
 $app = new Lightest([
 		'templates_path' => APP_DIR . DS . 'templates'
@@ -27,6 +27,7 @@ function () {
 });
 
 $app->get('/post', function () use ($app) {
+	//echo $app->request->get('d');
 	$app->view->render('form.php');
 });
 
