@@ -26,6 +26,14 @@ function () {
 	echo 'Another test.';
 });
 
+$app->get('/post', function () use ($app) {
+	$app->view->render('form.php');
+});
+
+$app->post('/post', function () use ($app) {
+	echo $app->request->isPost();
+});
+
 $app->notFound(function () {
 	echo 'Route not found.';
 });
