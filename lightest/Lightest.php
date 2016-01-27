@@ -8,6 +8,7 @@
 
 namespace Lightest;
 
+use Lightest\Middleware;
 use Lightest\Request;
 use Lightest\Route;
 use Lightest\Router;
@@ -96,6 +97,7 @@ class Lightest {
 
 		$settings = array_merge($defaults, $settings);
 
+		$this->middleware = new Middleware();
 		$this->router = new Router();
 		$this->request = new Request();
 		$this->view = new View($settings['templates_path']);
@@ -126,6 +128,16 @@ class Lightest {
 		$route = new Route($uri, $http_method, $actions);
 
 		$this->router->addRoute($route);
+	}
+
+	/**
+	 * Add a middleware
+	 * @param  Oject $middleware middleware object
+	 * @return void
+	 */
+	public function middleware($middleware)
+	{
+		$this->middleware->add($middleware);
 	}
 
 	/**
@@ -203,6 +215,10 @@ class Lightest {
 		$this->noRoute = $handlers;
 	}
 
+	/**
+	 * Route not found handler
+	 * @return void
+	 */
 	public function handleNotFound()
 	{
 		if (isset($this->noRoute)) {
@@ -220,11 +236,15 @@ class Lightest {
 	 */
 	public function run()
 	{
+		$this->middleware->before();
+
 		$dispatched = $this->router->dispatch($this->request);
 
 		if (!$dispatched) {
 			$this->handleNotFound();
 		}
+
+		$this->middleware->after();
 	}
 
 }
