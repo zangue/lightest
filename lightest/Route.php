@@ -67,6 +67,15 @@ class Route {
 	}
 
 	/**
+	 * set the route uri
+	 * @param string $uri route uri
+	 */
+	public function setUri($uri)
+	{
+		$this->uri = $uri;
+	}
+
+	/**
 	 * Get all actions for this route
 	 * @return Array of callable
 	 */
