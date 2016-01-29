@@ -4,6 +4,8 @@
  * A demo application
  */
 
+require 'middleware' . DS . 'TestMiddleware.php';
+
 require LIGHTEST_DIR . DS . 'Lightest.php';
 
 use Lightest\Lightest;
@@ -15,6 +17,8 @@ $app = new Lightest([
 	]);
 
 //var_dump($app->request->allGet());
+
+$app->middleware(new TestMiddleware());
 
 $app->get('/', function () use ($app) {
 	echo 'Lightest ' . $app->version();
