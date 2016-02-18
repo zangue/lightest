@@ -20,19 +20,25 @@ class Route {
 	 * Resource uri
 	 * @var string
 	 */
-	private $uri;
+	protected $uri;
 
 	/**
 	 * HTTP method for this route.
 	 * @var string
 	 */
-	private $http_method;
+	protected $http_method;
 
 	/**
 	 * A set of actions to be applied on a particular route uri
 	 * @var Callable Array
 	 */
-	private $actions;
+	protected $actions;
+
+	/**
+	 * Route parameters
+	 * @var array
+	 */
+	protected $params;
 
 	/**
 	 * Class constructor
