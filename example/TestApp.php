@@ -20,22 +20,26 @@ $app = new Lightest([
 
 $app->middleware(new TestMiddleware());
 
+// $app->route('/', function () use ($app) {
+// 	echo 'Lightest ' . $app->version();
+// })->methods('GET');
+
 $app->get('/', function () use ($app) {
 	echo 'Lightest ' . $app->version();
 });
 
-$app->get('/test', function () use ($app) {
+$app->route('/test', function () use ($app) {
 	echo 'This is a test.';
 	//echo $app->request->getHttpMethod();
 },
 function () {
 	echo 'Another test.';
-});
+})->methods('GET');
 
-$app->get('/post', function () use ($app) {
+$app->route('/post', function () use ($app) {
 	//echo $app->request->get('d');
 	$app->view->render('form.php');
-});
+})->methods('GET');
 
 $app->post('/post', function () use ($app) {
 	//echo $app->request->isPost();
