@@ -41,9 +41,9 @@ class Router {
 
 		foreach ($this->routes as $route) {
 			//var_dump($route->getUri(), $request->getUri());
-			//var_dump($route->getHttpMethod(), $request->getHttpMethod());
+			//var_dump($route->getHttpMethods(), $request->getHttpMethod());
 			if ($route->getUri() === $request->getUri() &&
-				$route->getHttpMethod() === $request->getHttpMethod()) {
+				in_array($request->getHttpMethod(), $route->getHttpMethods())) {
 				return $route;
 			}
 		}
@@ -59,14 +59,14 @@ class Router {
 	{
 		foreach ($this->routes as $r) {
 			if ($r->getUri() === $route->getUri() &&
-				$r->getHttpMethod() === $route->getHttpMethod())
+				$r->getHttpMethods() == $route->getHttpMethods())
 				throw new Exception("Application error: route with uri: " . $r->getUri() .
-					" and method " . $r.getHttpMethod() . " already exists");
+					" and specified methods already exists");
 		}
 
 		if ($route instanceof Route) { // Necessary?
 			$this->routes[] = $route;
-			return;
+			return $route;
 		}
 
 		throw new Exception("Application error: Argument is not a Route");

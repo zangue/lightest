@@ -23,10 +23,10 @@ class Route {
 	protected $uri;
 
 	/**
-	 * HTTP method for this route.
+	 * HTTP methods for this route.
 	 * @var string
 	 */
-	protected $http_method;
+	protected $http_methods;
 
 	/**
 	 * A set of handlers to be called on a particular route uri
@@ -45,14 +45,14 @@ class Route {
 	 * @param string $uri     the route uri
 	 * @param Callable $handlers array of callable handlers
 	 */
-	public function __construct($uri, $http_method, $handlers = null)
+	public function __construct($uri, $handlers = null, $http_methods = null)
 	{
-		$valid_http_methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
-
 		if (!is_null($uri)) $this->uri = $uri;
 
-		if (!is_null($http_method) && in_array($http_method, $valid_http_methods))
-			$this->http_method = $http_method;
+		if (!is_null($http_methods) && $this->validateMethods($http_methods))
+			$this->http_methods = $http_methods;
+		else
+			$this->http_methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
 
 		foreach ($handlers as $handler) {
 			if (!is_null($handler) && is_callable($handler))
@@ -61,6 +61,26 @@ class Route {
 				throw new Exception("Application error: handler must be a callable");
 				
 		}
+	}
+
+	/**
+	 * Checks if the passed methods are valid
+	 * @param  Array $methods the HTTP method names
+	 * @return boolean
+	 */
+	private function validateMethods($methods)
+	{
+		$valid_http_methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
+
+		if (!is_array($methods) || empty($methods))
+			throw new Exception("HTTP Methods must be an non empty array");
+
+		foreach ($methods as $method) {
+			if (!in_array($method, $valid_http_methods))
+				return false;
+		}
+
+		return true;
 	}
 
 	/**
@@ -105,12 +125,43 @@ class Route {
 	}
 
 	/**
-	 * Get the http method for this route
-	 * @return string http method
+	 * Get the http methods for this route
+	 * @return Array http methods
 	 */
-	public function getHttpMethod()
+	public function getHttpMethods()
 	{
-		return $this->http_method;
+		return $this->http_methods;
 	}
+
+	/**
+	 * Override route methods
+	 * @return void
+	 */
+	public function methods()
+	{
+
+		$http_methods = func_get_args();
+
+        if(count($http_methods) && is_array($http_methods[0])){
+            $http_methods = $http_methods[0];
+        }
+
+		if ($this->validateMethods($http_methods)) {
+			unset($this->http_methods);
+			$this->http_methods = $http_methods;
+		}
+
+	}
+
+	/**
+	 * Alias for methods()
+	 * @return void
+	 */
+	public function method()
+	{
+		$this->methods(func_get_args());
+	}
+
+
 
 }

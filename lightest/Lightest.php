@@ -117,17 +117,18 @@ class Lightest {
 	 * @param string $uri
 	 * @param string $method HTTP Method
 	 * @param array of callables $handlers handlers to be performed on route match
+	 * @return Route added route
 	 */
-	protected function addRoute($uri, $http_method, $handlers)
+	protected function addRoute($uri, $handlers)
 	{
 		if (is_null($uri))
 			throw new Exception("Error: Resource uri can not be NULL.");
 
 		$uri = '/' . trim($uri, '/');
 
-		$route = new Route($uri, $http_method, $handlers);
+		$route = new Route($uri, $handlers);
 
-		$this->router->addRoute($route);
+		return $this->router->addRoute($route);
 	}
 
 	/**
@@ -141,6 +142,18 @@ class Lightest {
 	}
 
 	/**
+	 * registers a route
+	 * @param  string $uri
+	 * @return Route
+	 */
+	public function route($uri)
+	{
+		$handlers = array_slice(func_get_args(), 1);
+
+		return $this->addRoute($uri, $handlers);
+	}
+
+	/**
 	 * adds a GET route
 	 * @param  string $uri
 	 * @return void
@@ -149,7 +162,7 @@ class Lightest {
 	{
 		$handlers = array_slice(func_get_args(), 1);
 
-		$this->addRoute($uri, 'GET', $handlers);
+		$this->addRoute($uri, $handlers)->method('GET');
 	}
 
 	/**
@@ -161,7 +174,7 @@ class Lightest {
 	{
 		$handlers = array_slice(func_get_args(), 1);
 
-		$this->addRoute($uri, 'POST', $handlers);
+		$this->addRoute($uri, $handlers)->method('POST');
 	}
 
 	/**
@@ -173,7 +186,7 @@ class Lightest {
 	{
 		$handlers = array_slice(func_get_args(), 1);
 
-		$this->addRoute($uri, 'PUT', $handlers);
+		$this->addRoute($uri, $handlers)->method('PUT');
 	}
 
 	/**
@@ -185,7 +198,7 @@ class Lightest {
 	{
 		$handlers = array_slice(func_get_args(), 1);
 
-		$this->addRoute($uri, 'PATCH', $handlers);
+		$this->addRoute($uri, $handlers)->method('PATCH');
 	}
 
 	/**
@@ -197,7 +210,7 @@ class Lightest {
 	{
 		$handlers = array_slice(func_get_args(), 1);
 
-		$this->addRoute($uri, 'DELETE', $handlers);
+		$this->addRoute($uri, $handlers)->method('DELETE');
 	}
 
 	/**
