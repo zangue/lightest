@@ -116,16 +116,16 @@ class Lightest {
 	 * Generic function to add a new route
 	 * @param string $uri
 	 * @param string $method HTTP Method
-	 * @param array of callables $actions actions to be performed on route match
+	 * @param array of callables $handlers handlers to be performed on route match
 	 */
-	protected function addRoute($uri, $http_method, $actions)
+	protected function addRoute($uri, $http_method, $handlers)
 	{
 		if (is_null($uri))
 			throw new Exception("Error: Resource uri can not be NULL.");
 
 		$uri = '/' . trim($uri, '/');
 
-		$route = new Route($uri, $http_method, $actions);
+		$route = new Route($uri, $http_method, $handlers);
 
 		$this->router->addRoute($route);
 	}
@@ -147,9 +147,9 @@ class Lightest {
 	 */
 	public function get($uri)
 	{
-		$actions = array_slice(func_get_args(), 1);
+		$handlers = array_slice(func_get_args(), 1);
 
-		$this->addRoute($uri, 'GET', $actions);
+		$this->addRoute($uri, 'GET', $handlers);
 	}
 
 	/**
@@ -159,9 +159,9 @@ class Lightest {
 	 */
 	public function post($uri)
 	{
-		$actions = array_slice(func_get_args(), 1);
+		$handlers = array_slice(func_get_args(), 1);
 
-		$this->addRoute($uri, 'POST', $actions);
+		$this->addRoute($uri, 'POST', $handlers);
 	}
 
 	/**
@@ -171,9 +171,9 @@ class Lightest {
 	 */
 	public function put($uri)
 	{
-		$actions = array_slice(func_get_args(), 1);
+		$handlers = array_slice(func_get_args(), 1);
 
-		$this->addRoute($uri, 'PUT', $actions);
+		$this->addRoute($uri, 'PUT', $handlers);
 	}
 
 	/**
@@ -183,9 +183,9 @@ class Lightest {
 	 */
 	public function patch($uri)
 	{
-		$actions = array_slice(func_get_args(), 1);
+		$handlers = array_slice(func_get_args(), 1);
 
-		$this->addRoute($uri, 'PATCH', $actions);
+		$this->addRoute($uri, 'PATCH', $handlers);
 	}
 
 	/**
@@ -195,9 +195,9 @@ class Lightest {
 	 */
 	public function delete($uri)
 	{
-		$actions = array_slice(func_get_args(), 1);
+		$handlers = array_slice(func_get_args(), 1);
 
-		$this->addRoute($uri, 'DELETE', $actions);
+		$this->addRoute($uri, 'DELETE', $handlers);
 	}
 
 	/**

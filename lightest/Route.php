@@ -12,7 +12,7 @@ use Exception;
 
 /**
  * This class describe a route element, i.e, a resource uri and one or more
- * of actions that schould be performed on uri request.
+ * of handlers that schould be called on uri request.
  */
 class Route {
 
@@ -29,10 +29,10 @@ class Route {
 	protected $http_method;
 
 	/**
-	 * A set of actions to be applied on a particular route uri
+	 * A set of handlers to be called on a particular route uri
 	 * @var Callable Array
 	 */
-	protected $actions;
+	protected $handlers;
 
 	/**
 	 * Route parameters
@@ -43,9 +43,9 @@ class Route {
 	/**
 	 * Class constructor
 	 * @param string $uri     the route uri
-	 * @param Callable $actions array of callable actions
+	 * @param Callable $handlers array of callable handlers
 	 */
-	public function __construct($uri, $http_method, $actions = null)
+	public function __construct($uri, $http_method, $handlers = null)
 	{
 		$valid_http_methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
 
@@ -54,11 +54,11 @@ class Route {
 		if (!is_null($http_method) && in_array($http_method, $valid_http_methods))
 			$this->http_method = $http_method;
 
-		foreach ($actions as $action) {
-			if (!is_null($action) && is_callable($action))
-				$this->actions[] = $action;
+		foreach ($handlers as $handler) {
+			if (!is_null($handler) && is_callable($handler))
+				$this->handlers[] = $handler;
 			else
-				throw new Exception("Application error: Action must be a callable");
+				throw new Exception("Application error: handler must be a callable");
 				
 		}
 	}
@@ -82,22 +82,22 @@ class Route {
 	}
 
 	/**
-	 * Get all actions for this route
+	 * Get all handlers for this route
 	 * @return Array of callable
 	 */
-	public function getActions()
+	public function getHandlers()
 	{
-		return $this->actions;
+		return $this->handlers;
 	}
 
 	/**
-	 * Adds action to route
-	 * @param Callable $action action to be perform for this route
+	 * Adds handler to route
+	 * @param Callable $handler handler to be perform for this route
 	 */
-	public function addAction($action)
+	public function addHandler($handler)
 	{
-		if (is_callable($action)) {
-			$this->actions[] = $action;
+		if (is_callable($handler)) {
+			$this->handlers[] = $handler;
 			return;
 		}
 

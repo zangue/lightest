@@ -84,9 +84,9 @@ class Router {
 		if (is_null($current_route))
 			return false;
 
-		foreach ($current_route->getActions() as $action) {
-			//var_dump($action);
-			call_user_func($action);
+		foreach ($current_route->getHandlers() as $handler) {
+			//var_dump($handler);
+			call_user_func($handler);
 		}
 
 		return true;
