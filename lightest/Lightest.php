@@ -10,6 +10,7 @@ namespace Lightest;
 
 use Lightest\Middleware;
 use Lightest\Request;
+use Lightest\Response;
 use Lightest\Route;
 use Lightest\Router;
 use Lightest\View;
@@ -34,6 +35,12 @@ class Lightest {
 	 * @var Request
 	 */
 	public $request;
+
+	/**
+	 * The Response object
+	 * @var Response
+	 */
+	public $response;
 
 	/**
 	 * The view object
@@ -100,6 +107,7 @@ class Lightest {
 		$this->middleware = new Middleware();
 		$this->router = new Router();
 		$this->request = new Request();
+		$this->response = new Response();
 		$this->view = new View($settings['templates_path']);
 	}
 
