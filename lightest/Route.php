@@ -72,9 +72,6 @@ class Route {
 	{
 		$valid_http_methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
 
-		if (!is_array($methods) || empty($methods))
-			throw new Exception("HTTP Methods must be an non empty array");
-
 		foreach ($methods as $method) {
 			if (!in_array($method, $valid_http_methods))
 				return false;
